@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"
+        integrity="sha512-DdX/YwF5e41Ok+AI81HI8f5/5UsoxCVT9GKYZRIzpLxb8Twz4ZwPPX+jQMwMhNQ9b5+zDEefc+dcvQoPWGNZ3g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        /* 將內容置中 */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        /* 設定todo列表的樣式 */
+        .todo-container {
+            width: 300px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+
+        /* 按鈕與todo的間距 */
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel"> //這邊有用到babel需要這樣寫 
+        //以及補上將 https://zh-hant.legacy.reactjs.org/docs/add-react-to-a-website.html React 加入到網頁 row:7-9
+        //axios cdn row:10
+
+        const { useState, useEffect } = React;
+        //import { useEffect} from 'React'; //使用 webpack, vite
+
+        function App() {
+            const [todos, setTodos] = useState([]);
+            const [newTodo, setNewTodo] = useState('');
+
+            const getTodos = async () => {
+                const response = await axios.get('/todos')
+                console.log(response); //這邊可看一下回傳內容
+                setTodos(response.data)
+            }
+
+            useEffect(() => {
+                getTodos();
+            }, [] // []元件建立時,觸發一次
+            );
+
+            /// 新增
+            const addTodos = async () => {
+                const response = await axios.post('/todos', {
+                    text: newTodo
+                });
+                console.log(response);
+                getTodos(); //存完就取, 直接顯示出來
+                setNewTodo('')  //輸入完清空
+            }
+
+            const deleteTodos = async (id) => {
+                console.log(id);
+                const response = await axios.delete(`/todos/${id}`); //要代入反引號
+                console.log(response);
+                getTodos(); //存完就取, 直接顯示出來
+            }
+
+            const changeTodoscomplete = async (id) => {
+                console.log(id);
+                const todo = todos.find(t => t.id === id); //取得該 id 的代辦項目
+                const updatedTodo = { ...todo, complete: !todo.complete };  //切換 complete 狀態
+                await axios.put(`/todos/${id}`, updatedTodo); //發送 PUT 請求更新伺服器上的資料
+                getTodos(); //存完就取, 直接顯示出來
+            }
+
+            // {JSON.stringify(todos)} // {JSON.stringify(todo)} //可檢視資料是否有正確
+            return (
+                <div className='todo-container'>
+                    <h1>Prague itinerary</h1>
+                    <input type='text'
+                        value={newTodo}
+                        onChange={(e) => {
+                            setNewTodo(e.target.value)
+                        }} />
+                    <button type="button" onClick={() => addTodos()}>Add Task</button>
+                    <div>
+                        <ul>
+                            {todos.map((todo) => (
+                                <li key={todo.id} className='todo-item'>
+                                    <span style={{
+                                        textDecoration: todo.complete ? "line-through" : null,
+                                        border: "1px solid black",  // 加入外框
+                                        padding: "5px",  // 可選：增加內邊距，讓外框和文字之間有點空間
+                                        display: "inline-block",  // 可選：使外框剛好包住文字
+                                        width: "200px",  // 固定寬度
+                                    }}>
+                                        {todo.text}
+                                    </span>
+                                    <button type="button" onClick={() => changeTodoscomplete(todo.id)}>
+                                        {todo.complete ? "Undo" : "Done"}
+                                    </button>
+                                    <button type="button" onClick={() => deleteTodos(todo.id)}>
+                                        Delete
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.querySelector('#root'))
+            .render(<App />)
+    </script>
+</body>
+
+</html>

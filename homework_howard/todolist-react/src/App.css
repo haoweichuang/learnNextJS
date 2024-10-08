@@ -1,0 +1,35 @@
+.App {
+  text-align: center;
+}
+
+.todo-list-main {
+  display: flex; /* 使用 Flexbox 來水平置中 */
+  justify-content: center; /* 左右置中 */
+  margin: 20px 0; /* 增加上下間距 */
+}
+
+.todo-list {
+  list-style-type: none; /* 移除預設列點樣式 */
+  padding: 0; /* 移除內邊距 */
+  width: 30%; /* 設定列表寬度，可以根據需求調整 */
+  display: flex; /* 使用 Flexbox 來排版 */
+  flex-direction: column; /* 垂直排列項目 */
+  align-items: center; /* 使所有項目水平置中 */
+}
+
+.todo-item {
+  display: flex; /* 使用 Flexbox 來對齊內容 */
+  align-items: center; /* 垂直居中對齊 */
+  margin-bottom: 10px; /* 每個項目之間的間距 */
+  flex-wrap: wrap; /* 讓內容換行 */
+  justify-content: center; /* 將內容水平置中 */
+}
+
+.todo-text {
+  border: 1px solid #ccc; /* 添加外框 */
+  padding: 5px 10px; /* 添加內邊距 */
+  flex-grow: 1; /* 讓文本佔據可用空間 */
+  max-width: 20%; /* 設定文本的最大寬度，可以根據需求調整 */
+  text-align: left; /* 確保文字左對齊 */
+  min-width: 100px; /* 設定最小寬度確保外框等長 */
+}
