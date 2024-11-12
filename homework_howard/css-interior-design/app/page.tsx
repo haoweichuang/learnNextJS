@@ -1,43 +1,77 @@
+"use client";
+
 import Image from "next/image";
 import Sidebar from "./compoments/Sidebar";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormSchema } from "@/lib/utils";
+import CustomInput from "./compoments/CustomInput";
 
 export default function Home() {
+  const formSchema = FormSchema();
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+  });
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    try {
+    } catch (error) {
+      console.log(error);
+    } finally {
+    }
+  };
+
   return (
     <div className="flex">
       <section className="">
         <Sidebar />
       </section>
 
-      {/* <section className="mainContent flex justify-center"> */}
-      <section className="flex size-full flex-col">
-        <div className="flex flex-col items-center">
-          <div className="">
-            <h1 className="text-left">Interior Design</h1>
+      <section id="mainContent" className="flex justify-center">
+        <div className="m-16">
+          <div className="w-full">
+            <h1 className="text-left text-[68px]">Interior Design</h1>
           </div>
 
-          <section className="">
+          <section id="showCase" className="mb-12">
             <h2 className="text-[48px] text-col-1">Showcase.</h2>
             <div className="grid grid-cols-2 gap-2">
               <Image
-                src="/public/bedroom.jpeg"
+                src="/bedroom.jpeg"
                 width={498}
                 height={277}
                 alt="bedroom"
               />
               <Image
-                src="/public/diningroom.jpeg"
+                src="/diningroom.jpeg"
                 width={498}
                 height={277}
                 alt="diningroom"
               />
               <Image
-                src="/public/livingroom.jpeg"
+                src="/livingroom.jpeg"
                 width={498}
                 height={277}
                 alt="livingroom"
               />
               <Image
-                src="/public/livingroom2.jpeg"
+                src="/livingroom2.jpeg"
                 width={498}
                 height={277}
                 alt="livingroom2"
@@ -45,13 +79,14 @@ export default function Home() {
             </div>
           </section>
 
-          <section id="services" className="">
+          <section id="services" className="mx-auto mb-12">
             <h2 className="text-[48px] text-col-1">Services.</h2>
-            <div>
-              We are a interior design service that focus on what's best for
-              your home and what's best for you!
-              <div />
-              <div>
+            <div className="text-[16px]">
+              <p>
+                We are a interior design service that focus on what's best for
+                your home and what's best for you!
+                <br />
+                <br />
                 Some text about our services - what we do and what we offer. We
                 are lorem ipsum consectetur adipiscing elit, sed do eiusmod
                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -64,46 +99,42 @@ export default function Home() {
                 labore et dolore magna aliqua. Ut enim ad minim veniam, quis
                 nostrud exercitation ullamco laboris nisi ut aliquip ex ea
                 commodo consequat.
-              </div>
+              </p>
             </div>
           </section>
 
           <section id="contact" className="w-full">
             <h2 className="text-[48px] text-col-1">Contact.</h2>
-            <div className="contact-form flex flex-col gap-2 text-xs">
-              <div className="flex flex-col md:flex-row md:items-center">
-                <div className="w-1/6">Name</div>
-                <input
-                  className="flex-grow border border-gray-300 p-2"
-                  type="text"
-                  name="name"
-                  id=""
-                />
-              </div>
-              <div className="flex flex-col md:flex-row md:items-center">
-                <div className="w-1/6">Email</div>
-                <input
-                  type="text"
-                  className="flex-grow border border-gray-300 p-2"
-                  name="email"
-                  id=""
-                />
-              </div>
-              <div className="flex flex-col md:flex-row md:items-center">
-                <div className="w-1/6">Message</div>
-                <input
-                  type="text"
-                  className="flex-grow border border-gray-300 p-2"
-                  name="message"
-                  id=""
-                />
-              </div>
-              <input
-                type="button"
-                value="Send Message"
-                className="bg-red-1 p-2 text-white"
-              />
+            <div className="mb-3">
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-2"
+                >
+                  <CustomInput
+                    control={form.control}
+                    name="name"
+                    label="Name"
+                  />
+                  <CustomInput
+                    control={form.control}
+                    name="email"
+                    label="Email"
+                  />
+                  <CustomInput
+                    control={form.control}
+                    name="message"
+                    label="Message"
+                  />
+                </form>
+              </Form>
             </div>
+
+            <input
+              type="button"
+              value="Send Message"
+              className="bg-col-1 text-white p-3 w-full"
+            />
           </section>
         </div>
       </section>
