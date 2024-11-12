@@ -1,101 +1,112 @@
 import Image from "next/image";
+import Sidebar from "./compoments/Sidebar";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="flex">
+      <section className="">
+        <Sidebar />
+      </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* <section className="mainContent flex justify-center"> */}
+      <section className="flex size-full flex-col">
+        <div className="flex flex-col items-center">
+          <div className="">
+            <h1 className="text-left">Interior Design</h1>
+          </div>
+
+          <section className="">
+            <h2 className="text-[48px] text-col-1">Showcase.</h2>
+            <div className="grid grid-cols-2 gap-2">
+              <Image
+                src="/public/bedroom.jpeg"
+                width={498}
+                height={277}
+                alt="bedroom"
+              />
+              <Image
+                src="/public/diningroom.jpeg"
+                width={498}
+                height={277}
+                alt="diningroom"
+              />
+              <Image
+                src="/public/livingroom.jpeg"
+                width={498}
+                height={277}
+                alt="livingroom"
+              />
+              <Image
+                src="/public/livingroom2.jpeg"
+                width={498}
+                height={277}
+                alt="livingroom2"
+              />
+            </div>
+          </section>
+
+          <section id="services" className="">
+            <h2 className="text-[48px] text-col-1">Services.</h2>
+            <div>
+              We are a interior design service that focus on what's best for
+              your home and what's best for you!
+              <div />
+              <div>
+                Some text about our services - what we do and what we offer. We
+                are lorem ipsum consectetur adipiscing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                aliquip ex ea commodo consequat. Duis aute irure dolor in
+                reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum
+                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat.
+              </div>
+            </div>
+          </section>
+
+          <section id="contact" className="w-full">
+            <h2 className="text-[48px] text-col-1">Contact.</h2>
+            <div className="contact-form flex flex-col gap-2 text-xs">
+              <div className="flex flex-col md:flex-row md:items-center">
+                <div className="w-1/6">Name</div>
+                <input
+                  className="flex-grow border border-gray-300 p-2"
+                  type="text"
+                  name="name"
+                  id=""
+                />
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center">
+                <div className="w-1/6">Email</div>
+                <input
+                  type="text"
+                  className="flex-grow border border-gray-300 p-2"
+                  name="email"
+                  id=""
+                />
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center">
+                <div className="w-1/6">Message</div>
+                <input
+                  type="text"
+                  className="flex-grow border border-gray-300 p-2"
+                  name="message"
+                  id=""
+                />
+              </div>
+              <input
+                type="button"
+                value="Send Message"
+                className="bg-red-1 p-2 text-white"
+              />
+            </div>
+          </section>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
     </div>
   );
 }
