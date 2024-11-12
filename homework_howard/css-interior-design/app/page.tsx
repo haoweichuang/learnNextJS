@@ -16,6 +16,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormSchema } from "@/lib/utils";
 import CustomInput from "./compoments/CustomInput";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const formSchema = FormSchema();
@@ -130,11 +131,9 @@ export default function Home() {
               </Form>
             </div>
 
-            <input
-              type="button"
-              value="Send Message"
-              className="bg-col-1 text-white p-3 w-full"
-            />
+            <Button type="submit" className="bg-col-1 text-white p-3 w-full">
+              Send Message
+            </Button>
           </section>
         </div>
       </section>
